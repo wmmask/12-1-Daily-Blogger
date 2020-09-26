@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DailyBlogger.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace DailyBlogger.Controllers
 {
@@ -16,7 +17,7 @@ namespace DailyBlogger.Controllers
         {
             _context = context;
         }
-                public IActionResult List()
+        public IActionResult List()
         {
             IEnumerable<BlogPost> posts = _context.blogPost.ToList<BlogPost>();
             return View(posts);
@@ -27,17 +28,18 @@ namespace DailyBlogger.Controllers
             BlogPost blogPost = new BlogPost();
             return View(blogPost);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]        
-        public IActionResult Create([Bind("blogTitle, content, blogDate")] BlogPost  blog)
+        public IActionResult Create([Bind("blogTitle,content,blogDate")] BlogPost  blogs)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(blog);
+                _context.Add(blogs);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(List));
             }
-            return View(blog);
+            return View(blogs);
         }
         public IActionResult Index()
         {

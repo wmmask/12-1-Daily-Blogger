@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DailyBlogger.Models
 {
-    public class BlogContext    :   DbContext
+    public class BlogContext : DbContext
     {
         public DbSet<BlogPost>  blogPost { get; set; }
         public BlogContext(DbContextOptions<BlogContext> options)   : base(options)
